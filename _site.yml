@@ -1,0 +1,20 @@
+name: "Menvekeh's Personal Corner of the Web"
+navbar:
+  title: "My Website"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "My Bio"
+      href: about.html
+    - text: "My CV"
+      href: cv.html
+    - text: "My Contacts"
+      href: Contacts.html
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    include:
+      after_body: footer.html
+    css: styles.css
+output_dir: "."    
