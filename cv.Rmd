@@ -2,7 +2,7 @@
 title: "My CV"
 ---
 
-My CV can be found (here)[https://mdaramay.github.io/cv.pdf]
+My CV can be found [here](https://mdaramay.github.io/cv.pdf)
 
 MENVEKEH DARAMAY
 36 N 3rd Street. Darby, PA, 19023
