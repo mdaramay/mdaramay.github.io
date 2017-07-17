@@ -10,6 +10,8 @@ navbar:
       href: cv.html
     - text: "My Contacts"
       href: Contacts.html
+    - text: "Project"
+      href: project.html
 output:
   html_document:
     theme: cosmo
