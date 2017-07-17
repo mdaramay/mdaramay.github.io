@@ -2,6 +2,8 @@
 title: "My CV"
 ---
 
+My CV can be found (here)[https://mdaramay.github.io/cv.pdf]
+
 MENVEKEH DARAMAY
 36 N 3rd Street. Darby, PA, 19023
 Cell: 267-984-3647
@@ -26,6 +28,7 @@ Trained to understand and help break cycles of trauma
 Research Positions
 Assistant. Hospital of the University of Pennsylvania (HUP), Dec 2012 – June 2014
 Neuropsychiatry Division
+
 Gained insight into schizophrenia and the effect on those who are afflicted by the disorder. I held three key roles: I organized and filed research folders and entered subject data into computer for later analysis. Additionally, I was trained as an experimenter who could run a few different types of studies. My first training was in Computerize Neuropsychiatry Batteries (CNB). CNB had series of cognitive test that tested subjects’ working memory, decision-making process, facial and emotional recognition, visual/spatial capabilities, reflex and more. Lastly, I was trained to run EEG studies in combination of eye trackers for studying the role of visual fixation in facial-emotional recognition in schizophrenic patients. 
 
 Assistant. University of Pennsylvania School of Medicine, June 2014 – May 2015
