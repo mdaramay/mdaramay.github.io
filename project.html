@@ -209,6 +209,472 @@ $(document).ready(function () {
 
 
 <p>For this project, I’ll be using GSS data to analyse the variables that effect access to health care in the United States.</p>
+<p>Introduction: Write a paragraph or two explaining why this is an interesting question. What is your hypothesis?</p>
+<p>Description of data: 2-3 paragraph describing GSS data sets. Despcritive statistics (Means, summary, medians, ect)</p>
+<p>Methods: 1 paragraph describing the statistical methods to be used.</p>
+<p>Results:</p>
+<p>Conclusions: summarize the findings. Were you able to support your hypothesis?</p>
+<pre class="r"><code>######################################################################
+#
+#  Final Project: Qaulity of Health by Regions of the Unites States
+#
+######################################################################
+# We will first run a package to read data into R.
+
+library(haven)
+
+# there is also a package &quot;foreign&quot; that was showned in class, but &quot;haven&quot; works better. 
+# For this projedct, I will use GSS2016. GSS2016 was downloaded from this link:
+# http://gss.norc.org/Documents/spss/2016_spss.zip
+
+# The datafile was placed in work folder and loaded:
+
+gss &lt;- read_dta(&quot;GSS2016.DTA&quot;)
+###################### 1. Working with data #################
+
+# View the dataset using this command:
+
+View(gss)
+
+# Find out the variable names using this command
+
+colnames(gss)</code></pre>
+<pre><code>##   [1] &quot;mar1&quot;            &quot;mar2&quot;            &quot;mar3&quot;           
+##   [4] &quot;mar4&quot;            &quot;mar5&quot;            &quot;mar6&quot;           
+##   [7] &quot;mar7&quot;            &quot;mar8&quot;            &quot;mar9&quot;           
+##  [10] &quot;mar10&quot;           &quot;mar11&quot;           &quot;mar12&quot;          
+##  [13] &quot;mar13&quot;           &quot;mar14&quot;           &quot;abany&quot;          
+##  [16] &quot;abdefect&quot;        &quot;abhlth&quot;          &quot;abnomore&quot;       
+##  [19] &quot;abpoor&quot;          &quot;abrape&quot;          &quot;absingle&quot;       
+##  [22] &quot;acqntsex&quot;        &quot;adforjob&quot;        &quot;adults&quot;         
+##  [25] &quot;advfront&quot;        &quot;advsched&quot;        &quot;affrmact&quot;       
+##  [28] &quot;age&quot;             &quot;age3&quot;            &quot;aged&quot;           
+##  [31] &quot;agedchld&quot;        &quot;agedpar&quot;         &quot;agekdbrn&quot;       
+##  [34] &quot;aidcol&quot;          &quot;aidhouse&quot;        &quot;aidindus&quot;       
+##  [37] &quot;aidold&quot;          &quot;aidunemp&quot;        &quot;appemps&quot;        
+##  [40] &quot;artatt&quot;          &quot;artatt1&quot;         &quot;artatt2&quot;        
+##  [43] &quot;artatt3&quot;         &quot;artatt4&quot;         &quot;artatt5&quot;        
+##  [46] &quot;artcost&quot;         &quot;artexbt&quot;         &quot;artfree&quot;        
+##  [49] &quot;artgst&quot;          &quot;artint&quot;          &quot;artloc&quot;         
+##  [52] &quot;artmostoth&quot;      &quot;artothr&quot;         &quot;arttime&quot;        
+##  [55] &quot;arttrvl&quot;         &quot;artwhy1&quot;         &quot;artwhy2&quot;        
+##  [58] &quot;artwhy3&quot;         &quot;artwhy4&quot;         &quot;artwhy5&quot;        
+##  [61] &quot;artwhy6&quot;         &quot;artwhy7&quot;         &quot;artwhy8&quot;        
+##  [64] &quot;artwhy9&quot;         &quot;askhelp&quot;         &quot;astrolgy&quot;       
+##  [67] &quot;astrosci&quot;        &quot;attend&quot;          &quot;away1&quot;          
+##  [70] &quot;away11&quot;          &quot;away13&quot;          &quot;away2&quot;          
+##  [73] &quot;away3&quot;           &quot;away4&quot;           &quot;away5&quot;          
+##  [76] &quot;away6&quot;           &quot;away7&quot;           &quot;babies&quot;         
+##  [79] &quot;ballot&quot;          &quot;balneg&quot;          &quot;balpos&quot;         
+##  [82] &quot;betrlang&quot;        &quot;bible&quot;           &quot;bigbang&quot;        
+##  [85] &quot;bigbang1&quot;        &quot;bigbang2&quot;        &quot;bored&quot;          
+##  [88] &quot;born&quot;            &quot;bossemps&quot;        &quot;boyorgrl&quot;       
+##  [91] &quot;bribe&quot;           &quot;brlawfl&quot;         &quot;brnotax&quot;        
+##  [94] &quot;cappun&quot;          &quot;cctv&quot;            &quot;cesd1&quot;          
+##  [97] &quot;cesd2&quot;           &quot;cesd3&quot;           &quot;cesd4&quot;          
+## [100] &quot;cesd5&quot;           &quot;chemgen&quot;         &quot;childs&quot;         
+## [103] &quot;chldidel&quot;        &quot;chngewrk&quot;        &quot;class&quot;          
+## [106] &quot;closeblk&quot;        &quot;closewht&quot;        &quot;clssmtes&quot;       
+## [109] &quot;codeg&quot;           &quot;coden&quot;           &quot;codipged&quot;       
+## [112] &quot;coeduc&quot;          &quot;coevwork&quot;        &quot;cofund&quot;         
+## [115] &quot;cohort&quot;          &quot;cohrs1&quot;          &quot;cohrs2&quot;         
+## [118] &quot;coind10&quot;         &quot;coisco08&quot;        &quot;cojew&quot;          
+## [121] &quot;colath&quot;          &quot;colcom&quot;          &quot;coldeg1&quot;        
+## [124] &quot;colhomo&quot;         &quot;colmil&quot;          &quot;colmslm&quot;        
+## [127] &quot;colrac&quot;          &quot;colsci&quot;          &quot;colscinm&quot;       
+## [130] &quot;comprend&quot;        &quot;compuse&quot;         &quot;conarmy&quot;        
+## [133] &quot;conbus&quot;          &quot;conclerg&quot;        &quot;condom&quot;         
+## [136] &quot;condrift&quot;        &quot;coneduc&quot;         &quot;confed&quot;         
+## [139] &quot;confinan&quot;        &quot;coninc&quot;          &quot;conjudge&quot;       
+## [142] &quot;conlabor&quot;        &quot;conlegis&quot;        &quot;conmedic&quot;       
+## [145] &quot;conpress&quot;        &quot;conrinc&quot;         &quot;consci&quot;         
+## [148] &quot;consent&quot;         &quot;contv&quot;           &quot;coocc10&quot;        
+## [151] &quot;coop&quot;            &quot;coother&quot;         &quot;copres10&quot;       
+## [154] &quot;coprestg10&quot;      &quot;coprestg105plus&quot; &quot;corel&quot;          
+## [157] &quot;corrupt1&quot;        &quot;corrupt2&quot;        &quot;cosei10&quot;        
+## [160] &quot;cosei10educ&quot;     &quot;cosei10inc&quot;      &quot;courts&quot;         
+## [163] &quot;cowrkers&quot;        &quot;cowrkslf&quot;        &quot;cowrksta&quot;       
+## [166] &quot;crack30&quot;         &quot;cutgovt&quot;         &quot;cuthours&quot;       
+## [169] &quot;dailywrk&quot;        &quot;dateintv&quot;        &quot;decidwrk&quot;       
+## [172] &quot;degree&quot;          &quot;denom&quot;           &quot;denom16&quot;        
+## [175] &quot;dipged&quot;          &quot;discaff&quot;         &quot;discaffm&quot;       
+## [178] &quot;discaffw&quot;        &quot;discwk5&quot;         &quot;divlaw&quot;         
+## [181] &quot;divorce&quot;         &quot;dwelling&quot;        &quot;dwelown&quot;        
+## [184] &quot;earnrs&quot;          &quot;earthsun&quot;        &quot;econsup1&quot;       
+## [187] &quot;educ&quot;            &quot;electron&quot;        &quot;emailhr&quot;        
+## [190] &quot;emailmin&quot;        &quot;emonitor&quot;        &quot;equalize&quot;       
+## [193] &quot;eqwlth&quot;          &quot;eth1&quot;            &quot;eth2&quot;           
+## [196] &quot;eth3&quot;            &quot;ethnic&quot;          &quot;ethnum&quot;         
+## [199] &quot;evbrkdwn&quot;        &quot;evcrack&quot;         &quot;evidu&quot;          
+## [202] &quot;evjob&quot;           &quot;evolved&quot;         &quot;evolved2&quot;       
+## [205] &quot;evpaidsx&quot;        &quot;evstray&quot;         &quot;evwork&quot;         
+## [208] &quot;exjobsat&quot;        &quot;expdesgn&quot;        &quot;exptext&quot;        
+## [211] &quot;extraern&quot;        &quot;extrawrk&quot;        &quot;facebook&quot;       
+## [214] &quot;fair&quot;            &quot;famdif16&quot;        &quot;famgen&quot;         
+## [217] &quot;family16&quot;        &quot;famintjb&quot;        &quot;famorjob&quot;       
+## [220] &quot;fear&quot;            &quot;fechld&quot;          &quot;feelevel&quot;       
+## [223] &quot;feeused&quot;         &quot;fefam&quot;           &quot;fehire&quot;         
+## [226] &quot;fejobaff&quot;        &quot;fepol&quot;           &quot;fepresch&quot;       
+## [229] &quot;finalter&quot;        &quot;finrela&quot;         &quot;flexhrs1&quot;       
+## [232] &quot;flickr&quot;          &quot;form&quot;            &quot;formwt&quot;         
+## [235] &quot;frndsex&quot;         &quot;fucitzn&quot;         &quot;fund&quot;           
+## [238] &quot;fund16&quot;          &quot;gender1&quot;         &quot;gender10&quot;       
+## [241] &quot;gender11&quot;        &quot;gender12&quot;        &quot;gender13&quot;       
+## [244] &quot;gender14&quot;        &quot;gender2&quot;         &quot;gender3&quot;        
+## [247] &quot;gender4&quot;         &quot;gender5&quot;         &quot;gender6&quot;        
+## [250] &quot;gender7&quot;         &quot;gender8&quot;         &quot;gender9&quot;        
+## [253] &quot;gendereq&quot;        &quot;genegen&quot;         &quot;getahead&quot;       
+## [256] &quot;getjob&quot;          &quot;givinffor&quot;       &quot;givinfusa&quot;      
+## [259] &quot;god&quot;             &quot;goodlife&quot;        &quot;googlesn&quot;       
+## [262] &quot;govtinfo&quot;        &quot;granborn&quot;        &quot;grass&quot;          
+## [265] &quot;grnlaws&quot;         &quot;gunlaw&quot;          &quot;gvinflu1&quot;       
+## [268] &quot;gvinflu2&quot;        &quot;hapcohab&quot;        &quot;hapmar&quot;         
+## [271] &quot;happy&quot;           &quot;harass5&quot;         &quot;health&quot;         
+## [274] &quot;hefinfo&quot;         &quot;helpblk&quot;         &quot;helpful&quot;        
+## [277] &quot;helpnot&quot;         &quot;helporg1&quot;        &quot;helpoth&quot;        
+## [280] &quot;helppoor&quot;        &quot;helpsick&quot;        &quot;hhrace&quot;         
+## [283] &quot;hhtype&quot;          &quot;hhtype1&quot;         &quot;hiinc&quot;          
+## [286] &quot;hispanic&quot;        &quot;hivtest&quot;         &quot;hivtest1&quot;       
+## [289] &quot;hivtest2&quot;        &quot;hlphitec&quot;        &quot;hlpoths&quot;        
+## [292] &quot;hlpsoc&quot;          &quot;hlthcare&quot;        &quot;homosex&quot;        
+## [295] &quot;hompop&quot;          &quot;hope1&quot;           &quot;hope2&quot;          
+## [298] &quot;hope3&quot;           &quot;hope4&quot;           &quot;hope5&quot;          
+## [301] &quot;hope6&quot;           &quot;hotcore&quot;         &quot;hrs1&quot;           
+## [304] &quot;hrs2&quot;            &quot;hrsmoney&quot;        &quot;hsbio&quot;          
+## [307] &quot;hschem&quot;          &quot;hsmath&quot;          &quot;hsphys&quot;         
+## [310] &quot;huclean&quot;         &quot;hunt&quot;            &quot;hunt1&quot;          
+## [313] &quot;id&quot;              &quot;idu30&quot;           &quot;if12who&quot;        
+## [316] &quot;incom16&quot;         &quot;income&quot;          &quot;income16&quot;       
+## [319] &quot;indus10&quot;         &quot;indusgen&quot;        &quot;instagrm&quot;       
+## [322] &quot;intage&quot;          &quot;intecon&quot;         &quot;inteduc&quot;        
+## [325] &quot;intenvir&quot;        &quot;intethn&quot;         &quot;intfarm&quot;        
+## [328] &quot;inthisp&quot;         &quot;intid&quot;           &quot;intintl&quot;        
+## [331] &quot;intjob&quot;          &quot;intlblks&quot;        &quot;intlwhts&quot;       
+## [334] &quot;intmbile&quot;        &quot;intmed&quot;          &quot;intmil&quot;         
+## [337] &quot;intrace1&quot;        &quot;intrace2&quot;        &quot;intrace3&quot;       
+## [340] &quot;intrecnt&quot;        &quot;intsci&quot;          &quot;intsex&quot;         
+## [343] &quot;intspace&quot;        &quot;inttech&quot;         &quot;intuse&quot;         
+## [346] &quot;intwkdyh&quot;        &quot;intwkdym&quot;        &quot;intwkenh&quot;       
+## [349] &quot;intwkenm&quot;        &quot;intyrs&quot;          &quot;isco08&quot;         
+## [352] &quot;isco88&quot;          &quot;issp&quot;            &quot;jbendmo&quot;        
+## [355] &quot;jbendyr&quot;         &quot;jbintfam&quot;        &quot;jbtrain&quot;        
+## [358] &quot;jew&quot;             &quot;jew16&quot;           &quot;jobeasy&quot;        
+## [361] &quot;jobfind&quot;         &quot;joblose&quot;         &quot;joborfam&quot;       
+## [364] &quot;jobsall&quot;         &quot;jobsat&quot;          &quot;kidssol&quot;        
+## [367] &quot;lasers&quot;          &quot;leasthrs&quot;        &quot;leavejob&quot;       
+## [370] &quot;lessreg&quot;         &quot;letdie1&quot;         &quot;letin1&quot;         
+## [373] &quot;libath&quot;          &quot;libcom&quot;          &quot;libhomo&quot;        
+## [376] &quot;libmil&quot;          &quot;libmslm&quot;         &quot;librac&quot;         
+## [379] &quot;life&quot;            &quot;linkedin&quot;        &quot;liveblks&quot;       
+## [382] &quot;livewhts&quot;        &quot;lngthinv&quot;        &quot;localnum&quot;       
+## [385] &quot;lookjob&quot;         &quot;lotr1&quot;           &quot;lotr2&quot;          
+## [388] &quot;lotr3&quot;           &quot;lotr4&quot;           &quot;lotr5&quot;          
+## [391] &quot;lotr6&quot;           &quot;lowpay&quot;          &quot;madeg&quot;          
+## [394] &quot;maeduc&quot;          &quot;maind10&quot;         &quot;maisco08&quot;       
+## [397] &quot;maisco88&quot;        &quot;major1&quot;          &quot;major2&quot;         
+## [400] &quot;majorcol&quot;        &quot;makejobs&quot;        &quot;maocc10&quot;        
+## [403] &quot;mapres10&quot;        &quot;mapres105plus&quot;   &quot;marasian&quot;       
+## [406] &quot;marblk&quot;          &quot;marcohab&quot;        &quot;marhisp&quot;        
+## [409] &quot;marhomo&quot;         &quot;marital&quot;         &quot;martype&quot;        
+## [412] &quot;marwht&quot;          &quot;masei10&quot;         &quot;masei10educ&quot;    
+## [415] &quot;masei10inc&quot;      &quot;matesex&quot;         &quot;mawrkgrw&quot;       
+## [418] &quot;mawrkslf&quot;        &quot;meovrwrk&quot;        &quot;mntlhlth&quot;       
+## [421] &quot;mobile16&quot;        &quot;mode&quot;            &quot;mortravl&quot;       
+## [424] &quot;mosthrs&quot;         &quot;moveaway&quot;        &quot;moveinus&quot;       
+## [427] &quot;nanoben&quot;         &quot;nanoharm&quot;        &quot;nanowill&quot;       
+## [430] &quot;nataid&quot;          &quot;nataidy&quot;         &quot;natarms&quot;        
+## [433] &quot;natarmsy&quot;        &quot;natchld&quot;         &quot;natcity&quot;        
+## [436] &quot;natcityy&quot;        &quot;natcrime&quot;        &quot;natcrimy&quot;       
+## [439] &quot;natdrug&quot;         &quot;natdrugy&quot;        &quot;nateduc&quot;        
+## [442] &quot;nateducy&quot;        &quot;natenrgy&quot;        &quot;natenvir&quot;       
+## [445] &quot;natenviy&quot;        &quot;natfare&quot;         &quot;natfarey&quot;       
+## [448] &quot;natheal&quot;         &quot;nathealy&quot;        &quot;natmass&quot;        
+## [451] &quot;natpark&quot;         &quot;natrace&quot;         &quot;natracey&quot;       
+## [454] &quot;natroad&quot;         &quot;natsci&quot;          &quot;natsoc&quot;         
+## [457] &quot;natspac&quot;         &quot;natspacy&quot;        &quot;news&quot;           
+## [460] &quot;newsfrom&quot;        &quot;newskill&quot;        &quot;nextgen&quot;        
+## [463] &quot;nogo&quot;            &quot;nogo1&quot;           &quot;nounemp1&quot;       
+## [466] &quot;nounemp2&quot;        &quot;nounemp3&quot;        &quot;nounemp4&quot;       
+## [469] &quot;nounemp5&quot;        &quot;nounemp6&quot;        &quot;nukegen&quot;        
+## [472] &quot;numemps&quot;         &quot;nummen&quot;          &quot;numwomen&quot;       
+## [475] &quot;obey&quot;            &quot;obeylaw&quot;         &quot;occ10&quot;          
+## [478] &quot;odds1&quot;           &quot;odds2&quot;           &quot;old1&quot;           
+## [481] &quot;old10&quot;           &quot;old11&quot;           &quot;old12&quot;          
+## [484] &quot;old13&quot;           &quot;old14&quot;           &quot;old2&quot;           
+## [487] &quot;old3&quot;            &quot;old4&quot;            &quot;old5&quot;           
+## [490] &quot;old6&quot;            &quot;old7&quot;            &quot;old8&quot;           
+## [493] &quot;old9&quot;            &quot;oth16&quot;           &quot;other&quot;          
+## [496] &quot;othersex&quot;        &quot;othlang&quot;         &quot;othlang1&quot;       
+## [499] &quot;othlang2&quot;        &quot;oversamp&quot;        &quot;owngun&quot;         
+## [502] &quot;padeg&quot;           &quot;paeduc&quot;          &quot;paidhow&quot;        
+## [505] &quot;paidsex&quot;         &quot;paind10&quot;         &quot;paisco08&quot;       
+## [508] &quot;paisco88&quot;        &quot;paocc10&quot;         &quot;papres10&quot;       
+## [511] &quot;papres105plus&quot;   &quot;parborn&quot;         &quot;parsol&quot;         
+## [514] &quot;partfull&quot;        &quot;partners&quot;        &quot;partnrs5&quot;       
+## [517] &quot;partyid&quot;         &quot;pasei10&quot;         &quot;pasei10educ&quot;    
+## [520] &quot;pasei10inc&quot;      &quot;pawrkslf&quot;        &quot;phase&quot;          
+## [523] &quot;phone&quot;           &quot;pikupsex&quot;        &quot;pillok&quot;         
+## [526] &quot;pinterst&quot;        &quot;pistol&quot;          &quot;polabuse&quot;       
+## [529] &quot;polattak&quot;        &quot;poleff11&quot;        &quot;poleff13&quot;       
+## [532] &quot;poleff16&quot;        &quot;poleff17&quot;        &quot;polescap&quot;       
+## [535] &quot;polgbeco&quot;        &quot;polhitok&quot;        &quot;polint&quot;         
+## [538] &quot;polmurdr&quot;        &quot;polviews&quot;        &quot;popespks&quot;       
+## [541] &quot;popular&quot;         &quot;pornlaw&quot;         &quot;posslq&quot;         
+## [544] &quot;posslqy&quot;         &quot;postlife&quot;        &quot;pray&quot;           
+## [547] &quot;prayer&quot;          &quot;premarsx&quot;        &quot;pres12&quot;         
+## [550] &quot;prestg10&quot;        &quot;prestg105plus&quot;   &quot;preteen&quot;        
+## [553] &quot;prfmatt&quot;         &quot;prfmatt1&quot;        &quot;prfmatt2&quot;       
+## [556] &quot;prfmatt3&quot;        &quot;prfmatt4&quot;        &quot;prfmatt5&quot;       
+## [559] &quot;prfmcost&quot;        &quot;prfmdan&quot;         &quot;prfmfree&quot;       
+## [562] &quot;prfmgst&quot;         &quot;prfmint&quot;         &quot;prfmloc&quot;        
+## [565] &quot;prfmmostoth&quot;     &quot;prfmmus&quot;         &quot;prfmnce&quot;        
+## [568] &quot;prfmothr&quot;        &quot;prfmthe&quot;         &quot;prfmtime&quot;       
+## [571] &quot;prfmtrvl&quot;        &quot;prfmwhy0&quot;        &quot;prfmwhy1&quot;       
+## [574] &quot;prfmwhy2&quot;        &quot;prfmwhy3&quot;        &quot;prfmwhy4&quot;       
+## [577] &quot;prfmwhy5&quot;        &quot;prfmwhy6&quot;        &quot;prfmwhy7&quot;       
+## [580] &quot;prfmwhy8&quot;        &quot;prfmwhy9&quot;        &quot;priagncy&quot;       
+## [583] &quot;pricecon&quot;        &quot;prideorg&quot;        &quot;promotn&quot;        
+## [586] &quot;protest1&quot;        &quot;protest3&quot;        &quot;proudwrk&quot;       
+## [589] &quot;prvdhlth&quot;        &quot;prvdold&quot;         &quot;prvdschl&quot;       
+## [592] &quot;pubagncy&quot;        &quot;racdif1&quot;         &quot;racdif2&quot;        
+## [595] &quot;racdif3&quot;         &quot;racdif4&quot;         &quot;race&quot;           
+## [598] &quot;racecen1&quot;        &quot;racecen2&quot;        &quot;racecen3&quot;       
+## [601] &quot;racethas&quot;        &quot;racethbl&quot;        &quot;racethhi&quot;       
+## [604] &quot;racethna&quot;        &quot;racethot&quot;        &quot;racethwh&quot;       
+## [607] &quot;raclive&quot;         &quot;racopen&quot;         &quot;racwork&quot;        
+## [610] &quot;radioact&quot;        &quot;rank&quot;            &quot;ratetone&quot;       
+## [613] &quot;rcontact&quot;        &quot;realinc&quot;         &quot;realrinc&quot;       
+## [616] &quot;reborn&quot;          &quot;reg16&quot;           &quot;region&quot;         
+## [619] &quot;relactiv&quot;        &quot;relate1&quot;         &quot;relate10&quot;       
+## [622] &quot;relate11&quot;        &quot;relate12&quot;        &quot;relate13&quot;       
+## [625] &quot;relate14&quot;        &quot;relate2&quot;         &quot;relate3&quot;        
+## [628] &quot;relate4&quot;         &quot;relate5&quot;         &quot;relate6&quot;        
+## [631] &quot;relate7&quot;         &quot;relate8&quot;         &quot;relate9&quot;        
+## [634] &quot;relatsex&quot;        &quot;relhh1&quot;          &quot;relhh10&quot;        
+## [637] &quot;relhh11&quot;         &quot;relhh12&quot;         &quot;relhh13&quot;        
+## [640] &quot;relhh14&quot;         &quot;relhh2&quot;          &quot;relhh3&quot;         
+## [643] &quot;relhh4&quot;          &quot;relhh5&quot;          &quot;relhh6&quot;         
+## [646] &quot;relhh7&quot;          &quot;relhh8&quot;          &quot;relhh9&quot;         
+## [649] &quot;relhhd1&quot;         &quot;relhhd10&quot;        &quot;relhhd11&quot;       
+## [652] &quot;relhhd12&quot;        &quot;relhhd13&quot;        &quot;relhhd14&quot;       
+## [655] &quot;relhhd2&quot;         &quot;relhhd3&quot;         &quot;relhhd4&quot;        
+## [658] &quot;relhhd5&quot;         &quot;relhhd6&quot;         &quot;relhhd7&quot;        
+## [661] &quot;relhhd8&quot;         &quot;relhhd9&quot;         &quot;relig&quot;          
+## [664] &quot;relig16&quot;         &quot;reliten&quot;         &quot;relpersn&quot;       
+## [667] &quot;relsp1&quot;          &quot;relsp10&quot;         &quot;relsp11&quot;        
+## [670] &quot;relsp12&quot;         &quot;relsp2&quot;          &quot;relsp3&quot;         
+## [673] &quot;relsp4&quot;          &quot;relsp5&quot;          &quot;relsp6&quot;         
+## [676] &quot;relsp7&quot;          &quot;relsp8&quot;          &quot;relsp9&quot;         
+## [679] &quot;res16&quot;           &quot;respnum&quot;         &quot;revpub&quot;         
+## [682] &quot;revspeak&quot;        &quot;rhiinc&quot;          &quot;rhlpoths&quot;       
+## [685] &quot;rhlpsoc&quot;         &quot;richwork&quot;        &quot;rifle&quot;          
+## [688] &quot;rincom16&quot;        &quot;rincome&quot;         &quot;rintjob&quot;        
+## [691] &quot;rowngun&quot;         &quot;rplace&quot;          &quot;rpromotn&quot;       
+## [694] &quot;rsecjob&quot;         &quot;rushed&quot;          &quot;rvisitor&quot;       
+## [697] &quot;rwrkindp&quot;        &quot;sampcode&quot;        &quot;sample&quot;         
+## [700] &quot;satfin&quot;          &quot;satjob&quot;          &quot;savejobs&quot;       
+## [703] &quot;savesoul&quot;        &quot;scibnfts&quot;        &quot;scientbe&quot;       
+## [706] &quot;scientgo&quot;        &quot;scienthe&quot;        &quot;scientod&quot;       
+## [709] &quot;scifrom&quot;         &quot;scinews1&quot;        &quot;scinews2&quot;       
+## [712] &quot;scinews3&quot;        &quot;scistudy&quot;        &quot;scitext&quot;        
+## [715] &quot;secjob&quot;          &quot;seeksci&quot;         &quot;sei10&quot;          
+## [718] &quot;sei10educ&quot;       &quot;sei10inc&quot;        &quot;sethrs&quot;         
+## [721] &quot;sex&quot;             &quot;sexeduc&quot;         &quot;sexfreq&quot;        
+## [724] &quot;sexornt&quot;         &quot;sexsex&quot;          &quot;sexsex5&quot;        
+## [727] &quot;shotgun&quot;         &quot;sibs&quot;            &quot;size&quot;           
+## [730] &quot;skltrain&quot;        &quot;snapchat&quot;        &quot;snsmfrst&quot;       
+## [733] &quot;snsmnew&quot;         &quot;snsmot2a&quot;        &quot;snsmot2b&quot;       
+## [736] &quot;snsmot2c&quot;        &quot;snsmoth1&quot;        &quot;socbar&quot;         
+## [739] &quot;socfrend&quot;        &quot;socommun&quot;        &quot;socrel&quot;         
+## [742] &quot;solarrev&quot;        &quot;spaneng&quot;         &quot;spanint&quot;        
+## [745] &quot;spanking&quot;        &quot;spanself&quot;        &quot;sparms&quot;         
+## [748] &quot;sparts&quot;          &quot;spdeg&quot;           &quot;spden&quot;          
+## [751] &quot;spdipged&quot;        &quot;speduc&quot;          &quot;spenviro&quot;       
+## [754] &quot;spevwork&quot;        &quot;spfund&quot;          &quot;sphlth&quot;         
+## [757] &quot;sphrs1&quot;          &quot;sphrs2&quot;          &quot;spind10&quot;        
+## [760] &quot;spisco08&quot;        &quot;spisco88&quot;        &quot;spjew&quot;          
+## [763] &quot;spjewaj&quot;         &quot;spkath&quot;          &quot;spkcom&quot;         
+## [766] &quot;spkhomo&quot;         &quot;spklang&quot;         &quot;spkmil&quot;         
+## [769] &quot;spkmslm&quot;         &quot;spkrac&quot;          &quot;spocc10&quot;        
+## [772] &quot;spother&quot;         &quot;sppolice&quot;        &quot;sppres10&quot;       
+## [775] &quot;sppres105plus&quot;   &quot;sprel&quot;           &quot;spretire&quot;       
+## [778] &quot;sprtprsn&quot;        &quot;spschool&quot;        &quot;spsei10&quot;        
+## [781] &quot;spsei10educ&quot;     &quot;spsei10inc&quot;      &quot;spunemp&quot;        
+## [784] &quot;spwrkslf&quot;        &quot;spwrksta&quot;        &quot;srcbelt&quot;        
+## [787] &quot;stayorg3&quot;        &quot;stoprndm&quot;        &quot;stress&quot;         
+## [790] &quot;stresswk&quot;        &quot;strngun&quot;         &quot;suicide1&quot;       
+## [793] &quot;suicide2&quot;        &quot;suicide3&quot;        &quot;suicide4&quot;       
+## [796] &quot;suiclse1&quot;        &quot;suiclse2&quot;        &quot;suimths1&quot;       
+## [799] &quot;suimths2&quot;        &quot;suineg1&quot;         &quot;suineg2&quot;        
+## [802] &quot;suinum&quot;          &quot;suinum1&quot;         &quot;suirel1&quot;        
+## [805] &quot;suirel2&quot;         &quot;suitime1&quot;        &quot;suitime2&quot;       
+## [808] &quot;suiyrs1&quot;         &quot;suiyrs2&quot;         &quot;supervis&quot;       
+## [811] &quot;tapphone&quot;        &quot;tax&quot;             &quot;taxbylaw&quot;       
+## [814] &quot;taxmid&quot;          &quot;taxpaid&quot;         &quot;taxpoor&quot;        
+## [817] &quot;taxrich&quot;         &quot;teens&quot;           &quot;teensex&quot;        
+## [820] &quot;tempgen&quot;         &quot;tempwork&quot;        &quot;thnkself&quot;       
+## [823] &quot;timeoff&quot;         &quot;toofast&quot;         &quot;trust&quot;          
+## [826] &quot;tumblr&quot;          &quot;tvhours&quot;         &quot;twitter&quot;        
+## [829] &quot;unemp&quot;           &quot;union&quot;           &quot;union1&quot;         
+## [832] &quot;unionsbd&quot;        &quot;unrelat&quot;         &quot;uscitzn&quot;        
+## [835] &quot;useskill&quot;        &quot;usewww&quot;          &quot;usualhrs&quot;       
+## [838] &quot;uswar&quot;           &quot;uswary&quot;          &quot;verdict&quot;        
+## [841] &quot;version&quot;         &quot;vetyears&quot;        &quot;vine&quot;           
+## [844] &quot;viruses&quot;         &quot;visitors&quot;        &quot;visnhist&quot;       
+## [847] &quot;vissci&quot;          &quot;viszoo&quot;          &quot;voedcol&quot;        
+## [850] &quot;voedncol&quot;        &quot;voednme1&quot;        &quot;voednme2&quot;       
+## [853] &quot;vote12&quot;          &quot;vpsu&quot;            &quot;vstrat&quot;         
+## [856] &quot;wantads&quot;         &quot;wantjob1&quot;        &quot;wantjob2&quot;       
+## [859] &quot;watergen&quot;        &quot;webmob&quot;          &quot;weekswrk&quot;       
+## [862] &quot;whatsapp&quot;        &quot;whencol&quot;         &quot;whenhs&quot;         
+## [865] &quot;where1&quot;          &quot;where11&quot;         &quot;where13&quot;        
+## [868] &quot;where2&quot;          &quot;where3&quot;          &quot;where4&quot;         
+## [871] &quot;where5&quot;          &quot;where7&quot;          &quot;whoelse1&quot;       
+## [874] &quot;whoelse2&quot;        &quot;whoelse3&quot;        &quot;whoelse4&quot;       
+## [877] &quot;whoelse5&quot;        &quot;whoelse6&quot;        &quot;whydisc5&quot;       
+## [880] &quot;whyjbend&quot;        &quot;widowed&quot;         &quot;wkathome&quot;       
+## [883] &quot;wkpersnl&quot;        &quot;wksub&quot;           &quot;wksub1&quot;         
+## [886] &quot;wksubs&quot;          &quot;wksubs1&quot;         &quot;wksup&quot;          
+## [889] &quot;wksup1&quot;          &quot;wksups&quot;          &quot;wksups1&quot;        
+## [892] &quot;wkwkends&quot;        &quot;wlthblks&quot;        &quot;wlthwhts&quot;       
+## [895] &quot;worda&quot;           &quot;wordb&quot;           &quot;wordc&quot;          
+## [898] &quot;wordd&quot;           &quot;worde&quot;           &quot;wordf&quot;          
+## [901] &quot;wordg&quot;           &quot;wordh&quot;           &quot;wordi&quot;          
+## [904] &quot;wordj&quot;           &quot;wordsum&quot;         &quot;worecsup&quot;       
+## [907] &quot;workblks&quot;        &quot;workhard&quot;        &quot;worknow&quot;        
+## [910] &quot;workwhts&quot;        &quot;wornojob&quot;        &quot;worryjob&quot;       
+## [913] &quot;wotrial&quot;         &quot;wrkearn&quot;         &quot;wrkenjoy&quot;       
+## [916] &quot;wrkgovt&quot;         &quot;wrkindp&quot;         &quot;wrkshift&quot;       
+## [919] &quot;wrkslf&quot;          &quot;wrkstat&quot;         &quot;wrkwayup&quot;       
+## [922] &quot;wtss&quot;            &quot;wtssall&quot;         &quot;wtssnr&quot;         
+## [925] &quot;wwwhr&quot;           &quot;wwwmin&quot;          &quot;xhaustn&quot;        
+## [928] &quot;xmarsex&quot;         &quot;xmovie&quot;          &quot;xnorcsiz&quot;       
+## [931] &quot;year&quot;            &quot;zodiac&quot;          &quot;intstart&quot;       
+## [934] &quot;snsmyear&quot;        &quot;hlthstrt&quot;        &quot;huadd&quot;          
+## [937] &quot;huaddwhy&quot;        &quot;dwellpre&quot;        &quot;kidsinhh&quot;       
+## [940] &quot;respond&quot;         &quot;incuspop&quot;        &quot;neisafe&quot;        
+## [943] &quot;rlooks&quot;          &quot;rgroomed&quot;        &quot;rweight&quot;        
+## [946] &quot;rhlthend&quot;        &quot;prfmothr1&quot;</code></pre>
+<pre class="r"><code>#Refer to the GSS codebook for what&#39;s in each variable.
+
+head(gss$health, 10) #displays the first 10 observation for the variable health</code></pre>
+<pre><code>## &lt;Labelled double&gt;
+##  [1]     2 NA(i)     2     2     1 NA(i)     4     2     2     2
+## 
+## Labels:
+##  value     label
+##      1 excellent
+##      2      good
+##      3      fair
+##      4      poor
+##  NA(n)        NA
+##  NA(d)        DK
+##  NA(i)       IAP</code></pre>
+<pre class="r"><code>head(gss$region, 10) #dipsplas the first 10 observation for the variable region.</code></pre>
+<pre><code>## &lt;Labelled double&gt;
+##  [1] 1 1 1 1 1 1 1 2 2 2
+## 
+## Labels:
+##  value           label
+##  NA(n)    NOT ASSIGNED
+##      1     new england
+##      2 middle atlantic
+##      3 e. nor. central
+##      4 w. nor. central
+##      5  south atlantic
+##      6 e. sou. central
+##      7 w. sou. central
+##      8        mountain
+##      9         pacific</code></pre>
+<pre class="r"><code># Let&#39;s look at some descriptive statistics for our two variables. Given that both
+# are categorical it doesn&#39;t make sense to look at mean, median or quantiles.
+# We can plot some figures to visualize disbrution, however. For instant histograms. 
+
+health_reg1 &lt;-(gss$health[gss$region == 1]) 
+hist(health_reg1, breaks = 10, main = &quot;Health Quality in the New England Region&quot;, col = &quot;Wheat&quot;, ylab = &quot;Frequency&quot;, xlab = &quot;Quality of Health with 1 = Excellen and 4 = Poor&quot;) # distrtibution of health for people in region 1</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>whealth_reg2 &lt;-(gss$health[gss$region == 2]) 
+hist(health_reg2, 10, main = &quot;Health Quality in the Middle Atlantic Region&quot;, col = &quot;wheat&quot;, ylab = &quot;Frequency&quot;, xlab = &quot;Quality of Health with 1 = Excellen and 4 = Poor&quot;, cex.lab = 1,5, cex.main = 1.4) # distrtibution of health for people in region 2</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre class="r"><code>health_reg3 &lt;-(gss$health[gss$region == 3]) 
+hist(health_reg3, 10, main = &quot;Health Quality in East the North Central Region&quot;, col = &quot;wheat&quot;, ylab = &quot;Frequency&quot;, xlab = &quot;Quality of Health with 1 = Excellen and 4 = Poor&quot;, cex.lab = 1,5, cex.main = 1.4) # distrtibution of health for people in region 3</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+<pre class="r"><code>health_reg4 &lt;-(gss$health[gss$region == 4]) 
+hist(health_reg4, 10, main = &quot;Health Quality in the West North Central Region&quot;, col = &quot;wheat&quot;, ylab = &quot;Frequency&quot;, xlab = &quot;Quality of Health with 1 = Excellen and 4 = Poor&quot;, cex.lab = 1,5, cex.main = 1.4) # distrtibution of health for people in region 4</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-1-4.png" width="672" /></p>
+<pre class="r"><code>health_reg5 &lt;-(gss$health[gss$region == 5])
+hist(health_reg5, 10, main = &quot;Health Quality in the South Atlantic Region&quot;, col = &quot;wheat&quot;, ylab = &quot;Frequency&quot;, xlab = &quot;Quality of Health with 1 = Excellen and 4 = Poor&quot;, cex.lab = 1,5, cex.main = 1.4) # distrtibution of health for people in region 5</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-1-5.png" width="672" /></p>
+<pre class="r"><code>health_reg6 &lt;-(gss$health[gss$region == 6]) 
+hist(health_reg6, 10, main = &quot;Health Quality in the East South Central Region&quot;, col = &quot;wheat&quot;, ylab = &quot;Frequency&quot;, xlab = &quot;Quality of Health with 1 = Excellen and 4 = Poor&quot;, cex.lab = 1,5, cex.main = 1.4) # distrtibution of health for people in region 6</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-1-6.png" width="672" /></p>
+<pre class="r"><code>health_reg7 &lt;-(gss$health[gss$region == 7]) 
+hist(health_reg7, 10, main = &quot;Health Quality in the West South Central Region&quot;, col = &quot;wheat&quot;, ylab = &quot;Frequency&quot;, xlab = &quot;Quality of Health with 1 = Excellen and 4 = Poor&quot;, cex.lab = 1,5, cex.main = 1.4) # distrtibution of health for people in region 7</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-1-7.png" width="672" /></p>
+<pre class="r"><code>health_reg8 &lt;-(gss$health[gss$region == 8]) 
+hist(health_reg8, 10, main = &quot;Health Quality in the Mountain Region&quot;, col = &quot;wheat&quot;, ylab = &quot;Frequency&quot;, xlab = &quot;Quality of Health with 1 = Excellen and 4 = Poor&quot;, cex.lab = 1,5, cex.main = 1.4) # distrtibution of health for people in region 8</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-1-8.png" width="672" /></p>
+<pre class="r"><code>health_reg9 &lt;-(gss$health[gss$region == 9]) 
+hist(health_reg9, 10, main = &quot;Health Quality in the Pacific Region&quot;, col = &quot;wheat&quot;, ylab = &quot;Frequency&quot;, xlab = &quot;Quality of Health with 1 = Excellen and 4 = Poor&quot;, cex.lab = 1,5, cex.main = 1.4) # distrtibution of health for people in region 9</code></pre>
+<p><img src="project_files/figure-html/unnamed-chunk-1-9.png" width="672" /></p>
+<pre class="r"><code>#plots health status by region
+#health_status &lt;-structure(list(NE=table(health_reg1), MA=table(health_reg2), EN=table(health_reg3), WN=table(health_reg4), SA=table(health_reg5), ES=table(health_reg6), WS=table(health_reg7), MO=table(health_reg8), PA=table(health_reg9)), .Names=c(&quot;New England&quot;, &quot;Middle Atlantic&quot;, &quot;E. Nor. Central&quot;, &quot;W. Nor. Central&quot;, &quot;South Atlantic&quot;, &quot;E. Sou. Central&quot;, &quot;W. Sou. Central&quot;, &quot;Mountain&quot;, &quot;Pacific&quot;), class=&quot;data.frame&quot;, row.names=c(&quot;Excellent&quot;, &quot;Good&quot;, &quot;Fair&quot;, &quot;Poor&quot;))
+#barplot(as.matrix(health_status), main=&quot;Quality of Health by Region in the U.S.&quot;, ylab = &quot;Number of People&quot;, xlab = &quot;Regions in the U.S.&quot;, cex.lab = 1.5, cex.main = 1.4, beside=TRUE, col = c(&quot;dodgerblue&quot;, &quot;pink&quot;, &quot;yellow&quot;, &quot;purple&quot; ))
+#legend(&quot;topright&quot;, c(&quot;Excellent&quot;, &quot;Good&quot;, &quot;Fair&quot;, &quot;Poor&quot;), cex = 1.3, bty = &quot;n&quot;, fill = c(&quot;dodgerblue&quot;, &quot;pink&quot;))
+
+
+# To see if there is relationship between health and region I&#39;ll use regression.
+
+lm(formula = health ~ factor(region), data = gss) # compares each region base on the health of the average person in the region</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = health ~ factor(region), data = gss)
+## 
+## Coefficients:
+##     (Intercept)  factor(region)2  factor(region)3  factor(region)4  
+##         1.97391          0.10452          0.15522          0.08958  
+## factor(region)5  factor(region)6  factor(region)7  factor(region)8  
+##         0.13935          0.35942          0.25724          0.18193  
+## factor(region)9  
+##         0.13504</code></pre>
+<pre class="r"><code>summary(lm(formula = health ~ factor(region), data = gss)) # gives F and P statistics</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = health ~ factor(region), data = gss)
+## 
+## Residuals:
+## &lt;Labelled double&gt;
+##      Min       1Q   Median       3Q      Max 
+## -1.33333 -0.33333 -0.11326  0.76884  2.02609 
+## 
+## Labels:
+##  value     label
+##      1 excellent
+##      2      good
+##      3      fair
+##      4      poor
+##  NA(n)        NA
+##  NA(d)        DK
+##  NA(i)       IAP
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      1.97391    0.07689  25.671  &lt; 2e-16 ***
+## factor(region)2  0.10452    0.09615   1.087 0.277175    
+## factor(region)3  0.15522    0.08919   1.740 0.081960 .  
+## factor(region)4  0.08958    0.10634   0.842 0.399690    
+## factor(region)5  0.13935    0.08826   1.579 0.114565    
+## factor(region)6  0.35942    0.10464   3.435 0.000606 ***
+## factor(region)7  0.25724    0.09659   2.663 0.007804 ** 
+## factor(region)8  0.18193    0.10162   1.790 0.073578 .  
+## factor(region)9  0.13504    0.09251   1.460 0.144539    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.8246 on 1876 degrees of freedom
+##   (982 observations deleted due to missingness)
+## Multiple R-squared:  0.009192,   Adjusted R-squared:  0.004967 
+## F-statistic: 2.175 on 8 and 1876 DF,  p-value: 0.02665</code></pre>
 
 <p>Copyright &copy; 2017 Menvekeh Daramay. All rights reserved.</p>
 
