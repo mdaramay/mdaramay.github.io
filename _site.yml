@@ -12,6 +12,8 @@ navbar:
       href: Contacts.html
     - text: "Project"
       href: project.html
+    - text: "Project Code"
+      href: project_code.html
       
 output:
   html_document:
