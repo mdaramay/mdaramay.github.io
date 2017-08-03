@@ -14,4 +14,5 @@ Results:
 
 Conclusions: summarize the findings. Were you able to support your hypothesis? 
 
-
+**Introduction**
+In many developed countries, access to healthcare is universal. If you get sick you can go to your doctor or a hospital knowing you'll receive care. You don't have to worry about if this doctor or that hosptial takes the insurance you have. In fact you don't have to worry about having an insurance. However, in the United States, this is not the case. 
