@@ -617,7 +617,7 @@ hist(health_reg9, 10, main = &quot;Health Quality in the Pacific Region&quot;, c
 <pre class="r"><code>#plots health status by region
 health_status &lt;-structure(list(NE=table(health_reg1), MA=table(health_reg2), EN=table(health_reg3), WN=table(health_reg4), SA=table(health_reg5), ES=table(health_reg6), WS=table(health_reg7), MO=table(health_reg8), PA=table(health_reg9)), .Names=c(&quot;New England&quot;, &quot;Middle Atlantic&quot;, &quot;E. Nor. Central&quot;, &quot;W. Nor. Central&quot;, &quot;South Atlantic&quot;, &quot;E. Sou. Central&quot;, &quot;W. Sou. Central&quot;, &quot;Mountain&quot;, &quot;Pacific&quot;), class=&quot;data.frame&quot;, row.names=c(&quot;Excellent&quot;, &quot;Good&quot;, &quot;Fair&quot;, &quot;Poor&quot;))
 barplot(as.matrix(health_status), main=&quot;Quality of Health by Region in the U.S.&quot;, ylab = &quot;Number of People&quot;, xlab = &quot;Regions in the U.S.&quot;, cex.lab = 1.5, cex.main = 1.4, beside=TRUE, col = c(&quot;dodgerblue&quot;, &quot;pink&quot;, &quot;yellow&quot;, &quot;purple&quot; ))
-legend(&quot;topright&quot;, c(&quot;Excellent&quot;, &quot;Good&quot;, &quot;Fair&quot;, &quot;Poor&quot;), cex = 1.3, bty = &quot;n&quot;, fill = c(&quot;dodgerblue&quot;, &quot;pink&quot;, &quot;yellow&quot;, &quot;purple&quot;))</code></pre>
+legend(&quot;topright&quot;, c(&quot;Excellent&quot;, &quot;Good&quot;, &quot;Fair&quot;, &quot;Poor&quot;), cex = 1.3, bty = &quot;n&quot;, fill = c(&quot;dodgerblue&quot;, &quot;pink&quot;, &quot;yellow&quot;, &quot;purple&quot; ))</code></pre>
 <p><img src="project_code_files/figure-html/unnamed-chunk-1-10.png" width="672" /></p>
 <pre class="r"><code># To see if there is relationship between health and region I&#39;ll use regression.
 
