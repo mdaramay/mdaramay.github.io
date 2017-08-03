@@ -1,6 +1,6 @@
 name: "Menvekeh's Personal Corner of the Web"
 navbar:
-  title: "My Website"
+  title: "Home"
   left:
     - text: "Home"
       href: index.html
