@@ -10,7 +10,7 @@ navbar:
       href: cv.html
     - text: "My Contacts"
       href: Contacts.html
-    - text: "Project"
+    - text: "Project Write-up"
       href: project.html
     - text: "Project Code"
       href: project_code.html
