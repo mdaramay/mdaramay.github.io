@@ -22,7 +22,7 @@ gss <- read_dta("GSS2016.DTA")
 
 # Find out the variable names using this command
 
-colnames(gss)
+gss_var <- colnames(gss)
 
 #Refer to the GSS codebook for what's in each variable.
 

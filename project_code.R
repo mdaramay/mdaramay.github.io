@@ -22,7 +22,7 @@ View(gss)
 
 # Find out the variable names using this command
 
-colnames(gss)
+gss_var <-colnames(gss)
 
 #Refer to the GSS codebook for what's in each variable.
 
