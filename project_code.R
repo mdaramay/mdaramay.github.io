@@ -63,4 +63,7 @@ hist(health_reg9, 10, main = "Health Quality in the Pacific Region", col = "whea
 lm(formula = health ~ factor(region), data = gss) # compares each region base on the health of the average person in the region
 summary(lm(formula = health ~ factor(region), data = gss)) # gives F and P statistics
 
+lm(formula = health ~ factor(region) + educ +income, data = gss) # controls for other variables such as education and income.
+
+summary(lm(formula = health ~ factor(region) + educ +income, data = gss)) #gives the F and P statistics
 

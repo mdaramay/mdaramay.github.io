@@ -229,10 +229,6 @@ library(haven)
 gss &lt;- read_dta(&quot;GSS2016.DTA&quot;)
 ###################### 1. Working with data #################
 
-# View the dataset using this command:
-
-View(gss)
-
 # Find out the variable names using this command
 
 colnames(gss)</code></pre>
@@ -671,6 +667,58 @@ lm(formula = health ~ factor(region), data = gss) # compares each region base on
 ##   (982 observations deleted due to missingness)
 ## Multiple R-squared:  0.009192,   Adjusted R-squared:  0.004967 
 ## F-statistic: 2.175 on 8 and 1876 DF,  p-value: 0.02665</code></pre>
+<pre class="r"><code>lm(formula = health ~ factor(region) + educ +income, data = gss) # controls for other variables such as education and income.</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = health ~ factor(region) + educ + income, data = gss)
+## 
+## Coefficients:
+##     (Intercept)  factor(region)2  factor(region)3  factor(region)4  
+##         3.30930          0.05280          0.09983         -0.03415  
+## factor(region)5  factor(region)6  factor(region)7  factor(region)8  
+##         0.09693          0.24171          0.11593          0.09458  
+## factor(region)9             educ           income  
+##         0.06982         -0.06240         -0.03635</code></pre>
+<pre class="r"><code>summary(lm(formula = health ~ factor(region) + educ +income, data = gss)) #gives the F and P statistics</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = health ~ factor(region) + educ + income, data = gss)
+## 
+## Residuals:
+## &lt;Labelled double&gt;
+##      Min       1Q   Median       3Q      Max 
+## -1.94579 -0.42816 -0.09407  0.54588  2.27507 
+## 
+## Labels:
+##  value     label
+##      1 excellent
+##      2      good
+##      3      fair
+##      4      poor
+##  NA(n)        NA
+##  NA(d)        DK
+##  NA(i)       IAP
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      3.309298   0.148681  22.258  &lt; 2e-16 ***
+## factor(region)2  0.052800   0.103000   0.513   0.6083    
+## factor(region)3  0.099826   0.095718   1.043   0.2971    
+## factor(region)4 -0.034146   0.112488  -0.304   0.7615    
+## factor(region)5  0.096931   0.095592   1.014   0.3107    
+## factor(region)6  0.241711   0.111135   2.175   0.0298 *  
+## factor(region)7  0.115929   0.102749   1.128   0.2594    
+## factor(region)8  0.094577   0.106777   0.886   0.3759    
+## factor(region)9  0.069819   0.100303   0.696   0.4865    
+## educ            -0.062399   0.006821  -9.149  &lt; 2e-16 ***
+## income          -0.036351   0.008618  -4.218 2.61e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.795 on 1595 degrees of freedom
+##   (1261 observations deleted due to missingness)
+## Multiple R-squared:  0.0806, Adjusted R-squared:  0.07484 
+## F-statistic: 13.98 on 10 and 1595 DF,  p-value: &lt; 2.2e-16</code></pre>
 
 <p>Copyright &copy; 2017 Menvekeh Daramay. All rights reserved.</p>
 

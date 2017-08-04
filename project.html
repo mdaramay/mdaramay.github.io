@@ -11,7 +11,7 @@
 
 
 
-<title>Project</title>
+<title>Project Write-up</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -206,18 +206,23 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Project</h1>
+<h1 class="title toc-ignore">Project Write-up</h1>
 
 </div>
 
 
-<p>For this project, I’ll be using GSS data to analyse the variables that effect access to health care in the United States.</p>
-<p>Introduction: Write a paragraph or two explaining why this is an interesting question. What is your hypothesis?</p>
-<p>Description of data: 2-3 paragraph describing GSS data sets. Despcritive statistics (Means, summary, medians, ect)</p>
-<p>Methods: 1 paragraph describing the statistical methods to be used.</p>
-<p>Results:</p>
-<p>Conclusions: summarize the findings. Were you able to support your hypothesis?</p>
-<p><strong>Introduction</strong> In many developed countries, access to healthcare is universal. If you get sick you can go to your doctor or a hospital knowing you’ll receive care. You don’t have to worry about if this doctor or that hosptial takes the insurance you have. In fact you don’t have to worry about having an insurance. However, in the United States, this is not the case.</p>
+<p><strong>Introduction</strong></p>
+<p>Universal healthcare system provides access to basic healthcare needs of all members of the society. Many developed countries, including our Northern neighbor, Canada, have universal health care system. United States does not. Instead, in the U.S. we have a system that can only be described as complicated. True to our capitalist ideals, the American healthcare system is supposed to operate under the principles of free market. The idea is that increase competition between insurance providers will drive down cost and improve quality. However, a free market doesn’t necessarily mean a fair market. A market that has 1 or 2 insurance companies selling the same plan can be as free as a market that has 10 different companies selling the same plans, but the two markets will never be equally competitive.</p>
+<p>Moreover, different regions of the U.S. have different means of access to healthcare facilities. Rural and less developed regions of the countries have fewer hospitals, clinics, doctors, and insurance companies operating within in their bounds. In light of this, as I analyze data from the General Social Survey (GSS) database, I hypothesized that individuals in the rural and less developed regions of the U.S. will have worst quality of health compared to individuals in regions that are more developed and urban. If my findings support my hypothesis, it will add to the growing body of evidence in favor of universal healthcare as apposed to the current U.S. system.</p>
+<p><strong>Source of Data</strong></p>
+<p>Since it establishment in 1972 by NORC at the University of Chicago, the GSS has provided high quality unbiased data on American contemporary society “in order to monitor attitudes, behaviors, attributes.”</p>
+<p><strong>Description of Data</strong></p>
+<p>For this cursory analysis of GSS data, I will use R programing language to focus on a few variables. Firstly, I am interested in elucidating what relationship, if any, exists between qualities of health of the average person in different regions of the U.S. Secondly, I want to see to what degree do qualities of health differ in different regions. The two variables that can shed light on these interests are health and region. In the GSS data, participants were asked rank the quality of their health in general on the scale of 1) Excellent, 2) Very good, 3) Good, and 4) Poor. Though this variable could be consider nominal and categorical, I’ll be analyzing as interval-ratio given the inherent nature that some of the rating are clearly better than the others. As for the variable region, the numbers of interviews conducted in each regions of U.S were simply documented as data for this variable. This variable is clear and is treated as nominal and categorical. Given the nature of these variables, exploratory statistics such as mean, median, standard deviation could not be performed.</p>
+<p>Instead, I plotted histograms of quality of heath of average people in each region and a bar graph for this as well. It should be noted that these histograms and the bar graph on give a very good visual representation of the data they are not useful to draw any concrete conclusion. By sigh alone, it appears that South Atlantic Region has the best overall health quality of health on average. When in reality this is due to the large sample size for individuals interview in this region.</p>
+<p><strong>Analysis</strong></p>
+<p>I performed a regression to test whether or not there really exists a relation between by chosen variables. The regression showed that on average people in the New England Region are the healthiest on average and people in the West North Central region are the least healthy on average. With a p-value of 2.7% I was able reject the null hypothesis of no difference between qualities of health in regions of the U.S. The complete rank of the regions from healthiest to least healthy is as follow: New England, East South Central, West South Central, Mountain, East North Central, Pacific, South Atlantic, Middle Atlantic, and West North Central. When I control for education and income, this relationship still holds.</p>
+<p><strong>Conclusion</strong></p>
+<p>In conclusion, U.S. healthcare system favors certain people over others. It allows for better access to healthcare if one lives in certain regions. Even controlling for such factors as education and income, the relationship between the qualities of health and regions is still statistically significant.</p>
 
 <p>Copyright &copy; 2017 Menvekeh Daramay. All rights reserved.</p>
 
